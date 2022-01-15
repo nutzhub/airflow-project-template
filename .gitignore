@@ -1,2 +1,12 @@
-venv
+# vscode
 .vscode
+
+# python
+venv
+
+# airflow
+logs
+*.pid
+airflow.cfg
+*.db
+webserver_config.py
