@@ -28,7 +28,7 @@ setup_dev: venv ## Setup development tools
 .PHONY: devsetup
 
 lint: venv ## Run flake8
-	$(VENV_CMD) && flake8 -r n dags
+	$(VENV_CMD) && flake8 --statistics dags plugins tests configs
 .PHONY: lint
 
 test: venv lint ## Run pytest
