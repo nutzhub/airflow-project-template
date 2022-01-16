@@ -40,6 +40,8 @@ lint: venv ## Run flake8, black
 test: venv lint ## Run pytest
 	@( \
 		export AIRFLOW_HOME=$(PWD); \
+		export AIRFLOW__CORE__UNIT_TEST_MODE; \
+		export AIRFLOW__CORE__LOAD_EXAMPLES=False; \
 		$(VENV_CMD); \
 		pytest tests --log-cli-level=info --disable-warnings; \
 	)
