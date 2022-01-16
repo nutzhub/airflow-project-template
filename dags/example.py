@@ -8,11 +8,11 @@ from airflow.utils.dates import days_ago
 
 # [START example]
 @dag(start_date=days_ago(2))
-def run():
+def example_dag():
     start_task = DummyOperator(task_id="start_task")
-    end_task = DummyOperator(task_id="start_task")
+    end_task = DummyOperator(task_id="end_task")
     start_task >> end_task
 
 
-dag = run()
+dag = example_dag()
 # [END example]
