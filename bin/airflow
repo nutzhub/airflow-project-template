@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -eu # Exit immediately and treat unset variables and parameters as error
+
+export AIRFLOW_HOME="${AIRFLOW_HOME:-$(pwd)}"
+export AIRFLOW__CORE__LOAD_EXAMPLES=False
+
+airflow "$@"

@@ -1,0 +1,16 @@
+[tool.black]
+line-length = 79
+exclude = '''
+/(
+    \.git
+  | \.pytest_cache
+  | venv
+  | _build
+  | buck-out
+  | build
+  | dist
+)/ '''
+
+[tool.flake8]
+max-line-length = 79
+max-complexity = 18

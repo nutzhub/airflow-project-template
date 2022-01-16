@@ -1,0 +1,11 @@
+# Dev tools
+pre-commit>=2.16.0
+black>=21.12b0
+flake8>=4.0.1
+isort>=5.10.1
+
+## A monkey patching wrapper to connect flake8 with pyproject.toml configuration.
+pyproject-flake8
+
+# Test dependencies
+pytest
