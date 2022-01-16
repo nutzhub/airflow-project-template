@@ -2,14 +2,14 @@ PYTHON_VERSION := 3.7
 AIRFLOW_VERSION := 2.2.3
 CONSTRAINT := https://raw.githubusercontent.com/apache/airflow/constraints-${AIRFLOW_VERSION}/constraints-${PYTHON_VERSION}.txt
 
-VENV_CMD=. venv/bin/activate # source venv
+VENV_CMD=. .venv/bin/activate # source venv
 
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 .PHONY: help
 
 venv: ## Enable virtual env
-	@if [ ! -e "venv/bin/activate" ] ; then python -m venv venv ; fi
+	@if [ ! -e ".venv/bin/activate" ] ; then python -m venv .venv ; fi
 .PHONY: venv
 
 install-dev: venv ## Install development tools and dependencies
@@ -17,7 +17,7 @@ install-dev: venv ## Install development tools and dependencies
 .PHONY: install-dev
 
 install-airflow: venv ## Install airflow with constraint
-	$(VENV_CMD) && pip install 'apache-airflow==2.2.3' --constraint ${CONSTRAINT}"
+	$(VENV_CMD) && pip install 'apache-airflow==${AIRFLOW_VERSION}' --constraint ${CONSTRAINT}
 .PHONY: install-airflow
 
 install-all: venv install-dev install-airflow ## Install all
@@ -29,17 +29,17 @@ setup_dev: venv ## Setup development tools
 .PHONY: devsetup
 
 lint: venv ## Run flake8, black	
-	$(VENV_CMD) && flake8 dags
-	$(VENV_CMD) && flake8 plugins
-	$(VENV_CMD) && flake8 tests
-	$(VENV_CMD) && flake8 configs
+	$(VENV_CMD) && pflake8 dags
+	$(VENV_CMD) && pflake8 plugins
+	$(VENV_CMD) && pflake8 tests
+	$(VENV_CMD) && pflake8 configs
 	$(VENV_CMD) && black dags plugins tests configs --check
 	
 .PHONY: lint
 
 test: venv lint ## Run pytest
 	@( \
-		export AIRFLOW_HOME=${PWD}; \
+		export AIRFLOW_HOME=$(PWD); \
 		$(VENV_CMD); \
 		pytest tests --log-cli-level=info --disable-warnings; \
 	)
